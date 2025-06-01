@@ -3,24 +3,40 @@ function sortear(){
     let de = parseInt(document.getElementById('de').value);
     let ate = parseInt(document.getElementById('ate').value);
 
-    //alert(`Quantidade: ${quantidade}, De: ${de}, Até: ${ate}`)
+    let qtdIntervalo = (ate-de);
 
-    let numero;
-    let sorteados = [];
+    console.log('Quantidade: '+ quantidade);
+    console.log('Valor Inicial: '+ de);
+    console.log('Valor Final: '+ ate);
+    console.log('Quantidade Intervalo: ' + qtdIntervalo);
 
-    for (let i = 0; i < quantidade; i++){
-        numero = obterNumeroAleatorio(de, ate);
+    if (de > ate){
+        alert(`O valor inicial ${de} é maior que o valor final ${ate}! \n O Jogo será reiniciado!`);
+        reiniciar();
+    } else if (qtdIntervalo < quantidade) {
+        alert(`O intervalo de números a sortear (${qtdIntervalo}) é menor do que a quantidade ${quantidade} informada a sortear! \n O Jogo será reiniciado!`);
+        reiniciar();
+        
+    } else {
+    
+        let numero;
+        let sorteados = [];
 
-        while(sorteados.includes(numero)){
+        for (let i = 0; i < quantidade; i++){
             numero = obterNumeroAleatorio(de, ate);
-        }
+
+            while(sorteados.includes(numero)){
+                numero = obterNumeroAleatorio(de, ate);
+            }
 
         sorteados.push(numero);
         alterarStatusBotao();
-    }
+        }
 
-    let resultado = document.getElementById('resultado');
-    resultado.innerHTML = `<label class="texto__paragrafo">Números sorteados:  ${sorteados}</label>`
+        let resultado = document.getElementById('resultado');
+        resultado.innerHTML = `<label class="texto__paragrafo">Números sorteados:  ${sorteados}</label>`
+        
+    }
 }
 
 function obterNumeroAleatorio(min, max){
